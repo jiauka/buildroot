@@ -107,7 +107,7 @@ choice
 	bool "DRM"
 	default BR2_PACKAGE_NETFLIX5_DRM_PLAYREADY
 	help
-	  Choose Audio Mixer type
+	  Choose DRM Type
 
 config BR2_PACKAGE_NETFLIX5_DRM_PLAYREADY
 	bool "playready"
