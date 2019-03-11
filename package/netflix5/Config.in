@@ -66,6 +66,12 @@ config BR2_PACKAGE_NETFLIX5_GST_GL
 	depends on BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_GL
 	default y
 
+config BR2_PACKAGE_NETFLIX5_TRACING
+	bool "tracing"
+	default n
+	help
+	  Turn this on for a verbose run of Netflix, this helps with debugging
+
 config BR2_PACKAGE_NETFLIX5_MARVEL
 	bool "marvel"
 	depends on BR2_PACKAGE_MARVELL_AMPSDK
@@ -122,6 +128,8 @@ config BR2_PACKAGE_NETFLIX5_DRM_OCDM
 	  DRM Ocdm
 
 endchoice
+
+
 
 endmenu
 endif
