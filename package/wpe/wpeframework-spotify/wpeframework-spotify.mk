@@ -5,7 +5,7 @@
 ################################################################################
 WPEFRAMEWORK_SPOTIFY_VERSION = cf5368e41273906b4297af483a5a244e441a4637
 WPEFRAMEWORK_SPOTIFY_SITE_METHOD = git
-WPEFRAMEWORK_SPOTIFY_SITE = git@github.com:WebPlatformForEmbedded/WPEPluginSpotify.git
+WPEFRAMEWORK_SPOTIFY_SITE = git@github.com:jiauka/WPEPluginSpotify.git
 WPEFRAMEWORK_SPOTIFY_INSTALL_STAGING = YES
 WPEFRAMEWORK_SPOTIFY_DEPENDENCIES = wpeframework
 

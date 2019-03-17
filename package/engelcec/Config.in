@@ -1,0 +1,7 @@
+config BR2_PACKAGE_ENGELCEC
+    bool "engelcec"
+	depends on BR2_PACKAGE_LIBCEC
+    help
+        Engel Cec
+
+        http://example.com

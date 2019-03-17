@@ -5,7 +5,7 @@
 ################################################################################
 
 WPEFRAMEWORK_UI_VERSION = ef53dcfa8d9dd4bf0894caf1367ab6fe2c2a48ee 
-WPEFRAMEWORK_UI_SITE = $(call github,WebPlatformForEmbedded,WPEFrameworkUI,$(WPEFRAMEWORK_UI_VERSION))
+WPEFRAMEWORK_UI_SITE = $(call github,jiauka,WPEFrameworkUI,$(WPEFRAMEWORK_UI_VERSION))
 WPEFRAMEWORK_UI_DEPENDENCIES = wpeframework wpeframework-plugins
 
 WPEFRAMEWORK_UI_INSTALL_STAGING = NO
