@@ -6,6 +6,7 @@
 ENGELCEC_VERSION = 1.0
 ENGELCEC_SITE = ./package/engelcec/src
 ENGELCEC_SITE_METHOD = local
+ENGELCEC_DEPENDENCIES += libcec
 define ENGELCEC_BUILD_CMDS
 	$(MAKE) CC="$(TARGET_CC)" LD="$(TARGET_LD)" -C $(@D)
 endef
