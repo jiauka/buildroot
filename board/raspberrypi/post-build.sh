@@ -30,3 +30,12 @@ if [ -f "${BOARD_DIR}/osmc-devinput-remote.json" ]; then
 	mkdir -p "${TARGET_DIR}/usr/share/WPEFramework/RemoteControl/"
 	cp -pf "${BOARD_DIR}/osmc-devinput-remote.json" "${TARGET_DIR}/usr/share/WPEFramework/RemoteControl/devinput-remote.json"
 fi
+
+# Copy network stuff
+if [ -f "${BOARD_DIR}/interfaces-init" ]; then
+	mkdir -p "${TARGET_DIR}/etc/network"
+	cp -pf "${BOARD_DIR}/interfaces-init" "${TARGET_DIR}/etc/network/interfaces"
+fi
+if [ -f "${BOARD_DIR}/wpa-init" ]; then
+	cp -pf "${BOARD_DIR}/wpa-init" "${TARGET_DIR}/etc//wpa_supplicant.conf"
+fi
