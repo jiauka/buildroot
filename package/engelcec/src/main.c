@@ -37,7 +37,7 @@
 
 #define LEN(x) (sizeof(x) / sizeof(*(x)))
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #define DPRINTF_X(t) printf(#t"=0x%x\n", t)
