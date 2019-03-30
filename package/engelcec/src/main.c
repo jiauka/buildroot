@@ -45,12 +45,14 @@
 #define DPRINTF_U(t) printf(#t"=%u\n", t)
 #define DPRINTF_S(t) printf(#t"=%s\n", t)
 #define DPRINTF printf
+#define DEBUG_DO(x) x
 #else
 #define DPRINTF_X(t)
 #define DPRINTF_D(t)
 #define DPRINTF_U(t)
 #define DPRINTF_S(t)
 #define DPRINTF(t)
+#define DEBUG_DO(x)
 #endif
 
 struct map {
@@ -67,7 +69,7 @@ FILE *file_ptr;
 
 /* global cec connection handle */
 libcec_connection_t g_connection;
-void onkeypress(void *cbparam, const cec_keypress key);
+void onkeypress(void *cbparam, const cec_keypress *key);
 void onlogmsg(void *cbparam, const cec_log_message *msg);
 void oncommand(void *cbparam, const cec_command *cmd);
 void onalert(void *cbparam, const libcec_alert type, const libcec_parameter param);
@@ -77,6 +79,7 @@ ICECCallbacks callbacks = {
 	.logMessage = onlogmsg,
 	.commandReceived = oncommand,
 	.alert = onalert,
+    .keyPress = onkeypress,
 };
 
 libcec_configuration g_config = {
@@ -86,8 +89,8 @@ libcec_configuration g_config = {
 	.deviceTypes = {
 		.types = {
 			CEC_DEVICE_TYPE_RECORDING_DEVICE,
-			CEC_DEVICE_TYPE_TV,
-			CEC_DEVICE_TYPE_TUNER,
+			CEC_DEVICE_TYPE_RESERVED,
+			CEC_DEVICE_TYPE_RESERVED,
 			CEC_DEVICE_TYPE_RESERVED,
 			CEC_DEVICE_TYPE_RESERVED,
 		},
@@ -181,9 +184,37 @@ void sendkeypress(unsigned ceccode)
 
 void onlogmsg(void *cbparam, const cec_log_message *msg)
 {
-    DPRINTF_S(msg->message);
+    const char* strLevel="UNKNOWN";
+    switch (msg->level)
+    {
+    case CEC_LOG_ERROR:
+      strLevel = "ERROR:   ";
+      break;
+    case CEC_LOG_WARNING:
+      strLevel = "WARNING: ";
+      break;
+    case CEC_LOG_NOTICE:
+      strLevel = "NOTICE:  ";
+      break;
+    case CEC_LOG_TRAFFIC:
+      strLevel = "TRAFFIC: ";
+      break;
+    case CEC_LOG_DEBUG:
+      strLevel = "DEBUG:   ";
+      break;
+    default:
+      break;
+    }
 
+    DEBUG_DO(printf("%s\t%s\n", strLevel, msg->message));
 }
+void onkeypress(void *cbparam, const cec_keypress *key)
+{
+
+	DPRINTF_X(key->keycode);
+	DPRINTF_X(key->duration);
+}
+
 void oncommand(void *cbparam, const cec_command *cmd)
 {
 	printf("[oncommand] %02x %02x %02x ",cmd->initiator,cmd->destination,cmd->opcode);
@@ -219,6 +250,9 @@ void onalert(void *cbparam, const libcec_alert type, const libcec_parameter para
 
 void cecHdmi(void)
 {
+#if 1
+    libcec_set_active_source(g_connection, g_config.deviceTypes.types[0]);            
+#else
     cec_command cec_cmd_hdmi;
     cec_cmd_hdmi.initiator = CECDEVICE_RECORDINGDEVICE1;
     cec_cmd_hdmi.destination = CECDEVICE_TV;
@@ -227,9 +261,10 @@ void cecHdmi(void)
     cec_cmd_hdmi.parameters.data[1]= 0x00;
     cec_cmd_hdmi.parameters.size= 02;
     cec_cmd_hdmi.opcode_set=1;
-    cec_cmd_hdmi.transmit_timeout=1000;
+    cec_cmd_hdmi.transmit_timeout=10;
     libcec_transmit(g_connection,&cec_cmd_hdmi);
     libcec_set_active_source(g_connection, g_config.deviceTypes.types[0]);   
+#endif
 }
 
 void setupcec(void)
