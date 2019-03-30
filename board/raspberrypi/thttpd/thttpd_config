@@ -1,0 +1,6 @@
+port=8888
+dir=/var/www/data
+cgipat=**.cgi
+logfile=/var/www/logs/thttpd_log
+pidfile=/var/run/thttpd.pid
+user=root

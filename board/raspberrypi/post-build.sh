@@ -39,3 +39,13 @@ fi
 if [ -f "${BOARD_DIR}/wpa-init" ]; then
 	cp -pf "${BOARD_DIR}/wpa-init" "${TARGET_DIR}/etc//wpa_supplicant.conf"
 fi
+echo "*********************"
+echo "*********************aaaaaaaaaaa ${BOARD_DIR}"
+    ls ${BOARD_DIR}
+# Copy thttpd stuff
+if [ -d "${BOARD_DIR}/thttpd" ]; then
+echo "*********************aaaaaaaaaaa ${BOARD_DIR}"
+    ls ${BOARD_DIR}
+	mkdir -p "${TARGET_DIR}/var/www/test"
+	cp -rpf "${BOARD_DIR}/thttpd/." "${TARGET_DIR}/var/www"
+fi
